@@ -1,4 +1,5 @@
 import 'package:cantwait28/features/add/cubit/add_cubit.dart';
+import 'package:cantwait28/repositories/items_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,7 +20,7 @@ class _AddPageState extends State<AddPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AddCubit(),
+      create: (context) => AddCubit(ItemsRepository()),
       child: BlocListener<AddCubit, AddState>(
         listener: (context, state) {
           if (state.saved) {
@@ -28,7 +29,7 @@ class _AddPageState extends State<AddPage> {
           if (state.errorMessage.isNotEmpty) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(state.errorMessage),
-              backgroundColor: Color.fromARGB(255, 214, 150, 146),
+              backgroundColor: const Color.fromARGB(255, 214, 150, 146),
             ));
           }
           // TODO: implement listener
@@ -37,7 +38,7 @@ class _AddPageState extends State<AddPage> {
           builder: (context, state) {
             return Scaffold(
               appBar: AppBar(
-                title: const Text('Add ne upcoming title'),
+                title: const Text('Add the upcoming title'),
                 actions: [
                   IconButton(
                     onPressed: _imageURL == null ||
